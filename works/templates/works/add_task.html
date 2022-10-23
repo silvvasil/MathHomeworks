@@ -1,0 +1,23 @@
+{% extends 'works/base.html' %}
+{% block content %}
+    {% if user.is_authenticated %}
+		<h1>Добавление задания</h1>
+		<br/>
+        
+        {% if submitted %}
+			<h3>Задание было успешно добавлено:</h3>
+			<br/>
+			<form action="{% url 'home' %}">
+			    <input type="submit" value="Вернуться на главную"  class="btn btn-secondary">
+			</form>
+		{% else %}
+			<form action="" method=POST>
+				{% csrf_token %}
+				{{ form.as_p }}
+				<input type="submit" value="Добавить задание" class="btn btn-secondary">
+	        </form>
+		{% endif %}
+	{% else %}
+		<h1>Для просмотра этой страницы требуется авторизация и права учителя</h1>
+	{% endif %}	
+{% endblock %}

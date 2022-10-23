@@ -1,0 +1,51 @@
+{% extends 'works/base.html' %}
+{% block content %}
+    {% if user.is_authenticated %}
+		<h1>Сдача работы</h1>
+		
+		{% if submitted %}
+			<h3>Вы супешно сдали работу по следующему заданию:</h3>
+			<br/>
+			<div class="card">
+				<div class="card-header">
+					{{ task }}
+				</div>
+				<div class="card-body">
+					<!-- <h5 class="card-title">{{ task.name }}</h5> -->
+					<p class="card-text">
+						<p>{{ task.description }}</p>
+						<p>Дедлайн сдачи работы: {{ task.deadline }}</p>
+					</p>
+				</div>
+			</div>
+			<br/>
+			<form action="{% url 'home' %}">
+			    <input type="submit" value="Вернуться на главную"  class="btn btn-secondary">
+			</form>
+		{% else %}
+			<h3>Вы сдаете работу по следующемум заданию:</h3>
+			<br/>
+			<div class="card">
+				<div class="card-header">
+					{{ task }}
+				</div>
+				<div class="card-body">
+					<!-- <h5 class="card-title">{{ task.name }}</h5> -->
+					<p class="card-text">
+						<p>{{ task.description }}</p>
+						<p>Дедлайн сдачи работы: {{ task.deadline }}</p>
+					</p>
+				</div>
+			</div>
+			<br/><br/>
+            <form action="" method=POST aligh='left' enctype="multipart/form-data">
+				{% csrf_token %}
+				{{ form.as_p }}
+			<input type="submit" value="Сдать" class="btn btn-secondary">
+	        </form>
+		{% endif %}
+		<br/><br/>
+	{% else %}
+		<h1> Sorry, you should be logged in to view this page</h1>
+	{% endif %}	
+{% endblock %}

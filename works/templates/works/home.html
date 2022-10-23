@@ -1,0 +1,12 @@
+{% extends 'works/base.html' %}
+{% block content %}
+	<center>
+	<h1>Math Homeworks</h1>
+    {% if user.is_authenticated %}
+    	
+	{% else %}
+		<p>Всем привет! Это сайт для сдачи домашних работ по математике.
+		Для дальнейшей работы на сайте, пожалуйста, авторизуйтесь!</p>
+	{% endif %}
+	</center>
+{% endblock %}

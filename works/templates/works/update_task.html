@@ -1,0 +1,22 @@
+{% extends 'works/base.html' %}
+
+{% block content %}
+{% if user.is_superuser %}	
+
+	<h1>Редактирование работы...</h1>
+	<br/>
+	<form action="" method=POST  enctype="multipart/form-data">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<br/>
+		<input type="submit" value="Сохранить изменения" class="btn btn-secondary">
+    </form>
+{% else %}
+	<h1>Для просмотра этой страницы требуется права учителя!</h1>
+
+	<a href="{% url 'login' %}">Войти</a>
+{% endif %}
+
+	
+	
+{% endblock %}

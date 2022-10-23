@@ -1,0 +1,56 @@
+{% extends 'works/base.html' %}
+{% block content %}
+	{% if user.is_authenticated %}
+		<h1>Задания</h1>
+		<br/>
+		{% if not works %}
+			<p>
+				Вы пока не сдали не одной работы.
+			</p>
+		{% else %}
+			{% for work in works %}
+				<div class="card">
+				<div class="card-header">
+					{{ work }}
+				</div>
+				<div class="card-body">
+					<!-- <h5 class="card-title">{{ task.name }}</h5> -->
+					<p class="card-text">
+						<p>{{ work.description }}</p>
+
+						{% if work.comment == "" %}
+							{% if user.is_superuser %}
+								<p>Данная работа еще не проверена</p>
+							{% else %}
+								<p>Ваша работа еще не проверена</p>
+							{% endif %}
+
+						{% else %}
+							{% if user.is_superuser %}
+								<p>Данная работа уже проверена</p>
+							{% else %}
+								<p>Ваша работа была проверена. 
+							Вот комментарий преподавателя: {{ work.comment }}</p>
+							{% endif %}
+							
+						{% endif %}
+					</p>
+				</div>
+				<div class="card-footer text-muted">
+					{% if user.is_superuser %}
+					<a href="{% url 'update-work' work.id %}" class="btn btn-outline-secondary btn-sm">Проверить работу</a>
+					{% else %}
+					<a href="{% url 'update-work' work.id %}" class="btn btn-outline-secondary btn-sm">Редактировать работу</a>
+					<a href="{% url 'delete-work' work.id %}"  class="btn btn-outline-danger btn-sm">Удалить работу</a>
+					{% endif %}
+				</div>
+
+			</div>
+			<br/><br/>
+				
+			{% endfor %}
+		{% endif%}
+	{% else %}
+		Для просмотра этой страницы, нужно авторизоваться.
+	{% endif %}
+{% endblock %}

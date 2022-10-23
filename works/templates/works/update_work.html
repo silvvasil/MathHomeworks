@@ -1,0 +1,31 @@
+{% extends 'works/base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}	
+	{% if user.id == work.owner or user.is_superuser %}
+
+	<h1>Редактирование работы...</h1>
+	<br/>
+	<form action="" method=POST  enctype="multipart/form-data">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<br/>
+		<input type="submit" value="Сохранить изменения" class="btn btn-secondary">
+
+		{% else %}
+
+		<h2>Доступ запрещен!</h2>
+		<p>Только автор работы может ее редактировать...</p>
+
+		{% endif %}
+
+
+{% else %}
+	<h1>Для просмотра этой страницы требуется авторизация!</h1>
+
+	<a href="{% url 'login' %}">Войти</a>
+{% endif %}
+
+	
+	
+{% endblock %}
