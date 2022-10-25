@@ -13,7 +13,7 @@ def login_user(request):
 			login(request, user)
 			return redirect('home') 
 		else:
-			messages.success(request, ("There was an error loggin in, try again "))
+			messages.success(request, ("Произошла ошибка во время авторизации - попробуйте еще раз"))
 			return redirect('login')
 	else:
 		return render(request, 'authenticate/login.html', {})
@@ -21,7 +21,7 @@ def login_user(request):
 
 def logout_user(request):
 	logout(request)
-	messages.success(request, ("You were logged out"))
+	messages.success(request, ("Вы вышли из аккаунта"))
 	return redirect('home')
 
 
@@ -34,7 +34,7 @@ def register_user(request):
 			password = form.cleaned_data['password1']
 			user = authenticate(username=username, password=password)
 			login(request, user)
-			messages.success(request, ("Registration Success"))
+			messages.success(request, ("Пользователь был успешно зарегистрирован"))
 			return redirect('home')
 	else:
 		form = RegisterUserForm()
